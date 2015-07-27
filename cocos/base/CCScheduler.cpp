@@ -300,7 +300,7 @@ void Scheduler::schedule(const ccSchedulerFunc& callback, void *target, float in
     }
     else
     {
-        CCASSERT(element->paused == paused, "element's paused should be paused!");
+        CCASSERT(element->paused == paused, "");
     }
 
     if (element->timers == nullptr)
@@ -694,7 +694,7 @@ void Scheduler::unscheduleScriptEntry(unsigned int scheduleScriptEntryID)
 
 void Scheduler::resumeTarget(void *target)
 {
-    CCASSERT(target != nullptr, "target can't be nullptr!");
+    CCASSERT(target != nullptr, "");
 
     // custom selectors
     tHashTimerEntry *element = nullptr;
@@ -709,14 +709,14 @@ void Scheduler::resumeTarget(void *target)
     HASH_FIND_PTR(_hashForUpdates, &target, elementUpdate);
     if (elementUpdate)
     {
-        CCASSERT(elementUpdate->entry != nullptr, "elementUpdate's entry can't be nullptr!");
+        CCASSERT(elementUpdate->entry != nullptr, "");
         elementUpdate->entry->paused = false;
     }
 }
 
 void Scheduler::pauseTarget(void *target)
 {
-    CCASSERT(target != nullptr, "target can't be nullptr!");
+    CCASSERT(target != nullptr, "");
 
     // custom selectors
     tHashTimerEntry *element = nullptr;
@@ -731,7 +731,7 @@ void Scheduler::pauseTarget(void *target)
     HASH_FIND_PTR(_hashForUpdates, &target, elementUpdate);
     if (elementUpdate)
     {
-        CCASSERT(elementUpdate->entry != nullptr, "elementUpdate's entry can't be nullptr!");
+        CCASSERT(elementUpdate->entry != nullptr, "");
         elementUpdate->entry->paused = true;
     }
 }
@@ -1001,7 +1001,7 @@ void Scheduler::schedule(SEL_SCHEDULE selector, Ref *target, float interval, uns
     }
     else
     {
-        CCASSERT(element->paused == paused, "element's paused should be paused.");
+        CCASSERT(element->paused == paused, "");
     }
     
     if (element->timers == nullptr)

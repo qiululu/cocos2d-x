@@ -15,7 +15,7 @@ public:
     UILoadingBarTest_Editor();
     ~UILoadingBarTest_Editor();
     virtual bool init() override;
-    void update(float delta)override;
+    void update(float delta);
 
     virtual void configureGUIScene() override;
 protected:

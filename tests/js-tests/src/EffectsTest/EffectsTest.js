@@ -31,8 +31,6 @@ var effectsTestSceneIdx = -1;
 
 var EffecstsBaseLayer = BaseTestLayer.extend({
 
-    _gridNodeTarget: null,
-    _doSetRect:false,
     code:function () {
         return "";
     },
@@ -55,30 +53,16 @@ var EffecstsBaseLayer = BaseTestLayer.extend({
         director.runScene(s);
     },
     onEnter:function () {
-        this._super();
+       this._super();
 
         var node = new cc.Node();
-
-        //Whether to demonstrate the effects inside a smaller rect
-        if(this._doSetRect === false)
-        {
-            var nodeGrid = new cc.NodeGrid();
-        }
-        else
-        {
-            var visiablesize = director.getVisibleSize();
-            var gridRect = cc.rect(visiablesize.width*0.1,
-                visiablesize.height*0.1,
-                visiablesize.width*0.4,
-                visiablesize.height*0.4);
-            var nodeGrid = new cc.NodeGrid(gridRect);
-        }
+	    var nodeGrid = new cc.NodeGrid();
         nodeGrid.addChild(node);
-        nodeGrid.runAction(this.getEffect(3));
+	    nodeGrid.runAction( this.getEffect(3) );
         this.addChild( nodeGrid );
 
         // back gradient
-        var gradient = new cc.LayerGradient( cc.color(255,0,0,255), cc.color(255,255,0,255));
+        var gradient = new cc.LayerGradient( cc.color(0,0,0,255), cc.color(98,99,117,255));
         node.addChild( gradient );
 
         // back image

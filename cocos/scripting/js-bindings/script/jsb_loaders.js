@@ -27,8 +27,7 @@
 //
 
 cc._emptyLoader = {
-    load : function(realUrl, url, res, cb){
-        cb && cb(null, null);
+    load : function(realUrl, url){
         return null;
     }
 };
@@ -40,25 +39,21 @@ cc.loader.register([
                     cc._emptyLoader);
 
 cc._txtLoader = {
-    load : function(realUrl, url, res, cb){
-        var result = jsb.fileUtils.getStringFromFile(realUrl);
-        cb && cb(null, result);
-        return result;
+    load : function(realUrl, url){
+        return jsb.fileUtils.getStringFromFile(realUrl);
     }
 };
 cc.loader.register(["txt", "xml", "vsh", "fsh", "tmx", "tsx"], cc._txtLoader);
 
 cc._jsonLoader = {
-    load : function(realUrl, url, res, cb){
-        var data = jsb.fileUtils.getStringFromFile(realUrl), result;
+    load : function(realUrl, url){
+        var data = jsb.fileUtils.getStringFromFile(realUrl);
         try{
-            result = JSON.parse(data);
+            return JSON.parse(data);
         }catch(e){
             cc.error(e);
-            result = null;
+            return null;
         }
-        cb && cb(null, result);
-        return result;
     }
 };
 cc.loader.register(["json", "ExportJson"], cc._jsonLoader);
@@ -78,20 +73,16 @@ cc._imgLoader = {
 cc.loader.register(["png", "jpg", "bmp","jpeg","gif"], cc._imgLoader);
 
 cc._plistLoader = {
-    load : function(realUrl, url, res, cb){
+    load : function(realUrl, url){
         var content = jsb.fileUtils.getStringFromFile(realUrl);
-        var result = cc.plistParser.parse(content);
-        cb && cb(null, result);
-        return result;
+        return cc.plistParser.parse(content);
     }
 };
 cc.loader.register(["plist"], cc._plistLoader);
 
 cc._binaryLoader = {
-    load : function(realUrl, url, res, cb){
-        var result = cc.loader.loadBinarySync(realUrl);
-        cb && cb(null, result);
-        return result;
+    load : function(realUrl, url){
+        return cc.loader.loadBinarySync(realUrl);
     }
 };
 cc.loader.register(["ccbi"], cc._binaryLoader);
@@ -175,12 +166,9 @@ cc._fntLoader = {
         return fnt;
     },
 
-    load : function(realUrl, url, res, cb){
-        var data = jsb.fileUtils.getStringFromFile(realUrl), result = null;
-        if (data)
-            result = this.parseFnt(data, url);
-        cb && cb(null, result);
-        return result;
+    load : function(realUrl, url){
+        var data = jsb.fileUtils.getStringFromFile(realUrl);
+        return this.parseFnt(data, url);
     }
 };
 cc.loader.register(["fnt"], cc._fntLoader);

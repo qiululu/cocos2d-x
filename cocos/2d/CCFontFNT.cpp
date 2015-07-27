@@ -734,7 +734,7 @@ FontAtlas * FontFNT::createFontAtlas()
         return nullptr;
     
     // commone height
-    tempAtlas->setLineHeight(_configuration->_commonHeight);
+    tempAtlas->setCommonLineHeight(_configuration->_commonHeight);
     
     
     BMFontDef fontDef;
@@ -752,6 +752,8 @@ FontAtlas * FontFNT::createFontAtlas()
         tempRect = fontDef.rect;
         tempRect = CC_RECT_PIXELS_TO_POINTS(tempRect);
         
+        tempDefinition.letteCharUTF16 = fontDef.charID;
+        
         tempDefinition.offsetX  = fontDef.xOffset;
         tempDefinition.offsetY  = fontDef.yOffset;
         
@@ -767,7 +769,7 @@ FontAtlas * FontFNT::createFontAtlas()
         tempDefinition.validDefinition = true;
         tempDefinition.xAdvance = fontDef.xAdvance;
         // add the new definition
-        tempAtlas->addLetterDefinition(fontDef.charID,tempDefinition);
+        tempAtlas->addLetterDefinition(tempDefinition);
     }
     
     // add the texture (only one texture for now)

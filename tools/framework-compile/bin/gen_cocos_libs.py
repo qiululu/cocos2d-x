@@ -1,5 +1,5 @@
 #!/usr/bin/python
-#-*- coding: utf-8 -*-
+#-*- coding: UTF-8 -*-
 
 import os
 import sys
@@ -96,13 +96,12 @@ class CocosLibsCompiler(object):
             # generate prebuilt mk files
             self.modify_binary_mk()
 
-    def build_win32_proj(self, cmd_path, sln_path, proj_name):
+    def build_win32_proj(self, cmd_path, sln_path, proj_name, mode):
         build_cmd = " ".join([
             "\"%s\"" % cmd_path,
             "\"%s\"" % sln_path,
-            "/t:%s" % proj_name,
-            "/property:Configuration=Release",
-            "/m"
+            "/%s \"Release|Win32\"" % mode,
+            "/Project \"%s\"" % proj_name
         ])
         utils_cocos.execute_command(build_cmd)
 
@@ -158,7 +157,7 @@ class CocosLibsCompiler(object):
                     clean_cmd = " ".join([
                         "\"%s\"" % vs_command,
                         "\"%s\"" % proj_path,
-                        "/t:Clean /p:Configuration=Release"
+                        "/clean \"Release|Win32\""
                     ])
                     utils_cocos.execute_command(clean_cmd)
 
@@ -185,7 +184,15 @@ class CocosLibsCompiler(object):
                     else:
                         for proj_name in win32_proj_info[key][CocosLibsCompiler.KEY_VS_BUILD_TARGETS]:
                             # build the projects
-                            self.build_win32_proj(vs_command, proj_path, proj_name)
+                            self.build_win32_proj(vs_command, proj_path, proj_name, "build")
+
+                            lib_file_path = os.path.join(build_folder_path, "%s.lib" % proj_name)
+                            if not os.path.exists(lib_file_path):
+                                # if the lib is not generated, rebuild the project
+                                self.build_win32_proj(vs_command, proj_path, proj_name, "rebuild")
+
+                            if not os.path.exists(lib_file_path):
+                                raise Exception("Library %s not generated as expected!" % lib_file_path)
 
                     # copy the libs into prebuilt dir
                     for file_name in os.listdir(build_folder_path):
@@ -201,12 +208,10 @@ class CocosLibsCompiler(object):
                     for proj_name in win32_proj_info[key][CocosLibsCompiler.KEY_VS_RENAME_TARGETS]:
                         src_name = os.path.join(win32_output_dir, "%s.lib" % proj_name)
                         dst_name = os.path.join(win32_output_dir, "%s%s.lib" % (proj_name, suffix))
-                        if not os.path.exists(src_name):
-                            raise Exception("Library %s not generated as expected!" % src_name)
-
-                        if os.path.exists(dst_name):
-                            os.remove(dst_name)
-                        os.rename(src_name, dst_name)
+                        if os.path.exists(src_name):
+                            if os.path.exists(dst_name):
+                                os.remove(dst_name)
+                            os.rename(src_name, dst_name)
             except Exception as e:
                 raise e
             finally:
@@ -321,8 +326,6 @@ class CocosLibsCompiler(object):
                 sys_folder_name = "windows%s" % bit_str
             elif utils_cocos.os_is_mac():
                 sys_folder_name = "darwin-x86_64"
-            elif utils_cocos.os_is_linux:
-                sys_folder_name = "linux-x86_64"
 
             # set strip execute file name
             if utils_cocos.os_is_win32():

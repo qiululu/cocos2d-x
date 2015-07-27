@@ -467,13 +467,6 @@ namespace ui {
         void setState(State state);
         
         /**
-         * Query the current bright state.
-         * @return @see `State`
-         * @since v3.7
-         */
-        State getState()const;
-        
-        /**
          * @brief Query the sprite's original size.
          *
          * @return Sprite size.
@@ -750,7 +743,6 @@ namespace ui {
         bool _flippedX;
         bool _flippedY;
         bool _isPatch9;
-        State _brightState;
     };
     
 }}  //end of namespace

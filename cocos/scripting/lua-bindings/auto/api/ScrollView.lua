@@ -27,14 +27,6 @@
 -- @return ScrollView#ScrollView self (return value: ccui.ScrollView)
         
 --------------------------------
--- brief Set the scroll bar's opacity<br>
--- param the scroll bar's opacity
--- @function [parent=#ScrollView] setScrollBarOpacity 
--- @param self
--- @param #unsigned char opacity
--- @return ScrollView#ScrollView self (return value: ccui.ScrollView)
-        
---------------------------------
 -- brief Toggle scroll bar enabled.<br>
 -- param enabled True if enable scroll bar, false otherwise.
 -- @function [parent=#ScrollView] setScrollBarEnabled 
@@ -102,14 +94,6 @@
 -- @return ScrollView#ScrollView self (return value: ccui.ScrollView)
         
 --------------------------------
--- Set inner container position<br>
--- param pos Inner container position.
--- @function [parent=#ScrollView] setInnerContainerPosition 
--- @param self
--- @param #vec2_table pos
--- @return ScrollView#ScrollView self (return value: ccui.ScrollView)
-        
---------------------------------
 -- Changes scroll direction of scrollview.<br>
 -- see `Direction`<br>
 -- param dir Scroll direction enum.
@@ -148,13 +132,6 @@
 -- @param self
 -- @param #size_table size
 -- @return ScrollView#ScrollView self (return value: ccui.ScrollView)
-        
---------------------------------
--- Get inner container position<br>
--- return The inner container position.
--- @function [parent=#ScrollView] getInnerContainerPosition 
--- @param self
--- @return vec2_table#vec2_table ret (return value: vec2_table)
         
 --------------------------------
 -- Get inner container size of scrollview.<br>
@@ -209,14 +186,6 @@
 -- @function [parent=#ScrollView] setInertiaScrollEnabled 
 -- @param self
 -- @param #bool enabled
--- @return ScrollView#ScrollView self (return value: ccui.ScrollView)
-        
---------------------------------
--- brief Set scroll bar auto hide state<br>
--- param scroll bar auto hide state
--- @function [parent=#ScrollView] setScrollBarAutoHideEnabled 
--- @param self
--- @param #bool autoHideEnabled
 -- @return ScrollView#ScrollView self (return value: ccui.ScrollView)
         
 --------------------------------
@@ -323,11 +292,12 @@
 -- @return ScrollView#ScrollView self (return value: ccui.ScrollView)
         
 --------------------------------
--- brief Get the scroll bar's opacity<br>
--- return the scroll bar's opacity
--- @function [parent=#ScrollView] getScrollBarOpacity 
+-- brief Set scroll bar auto hide state<br>
+-- param scroll bar auto hide state
+-- @function [parent=#ScrollView] setScrollBarAutoHideEnabled 
 -- @param self
--- @return unsigned char#unsigned char ret (return value: unsigned char)
+-- @param #bool autoHideEnabled
+-- @return ScrollView#ScrollView self (return value: ccui.ScrollView)
         
 --------------------------------
 -- Scroll inner container to bottom and right boundary of scrollview.<br>

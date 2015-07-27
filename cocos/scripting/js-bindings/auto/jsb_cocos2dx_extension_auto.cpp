@@ -1566,7 +1566,6 @@ void js_register_cocos2dx_extension_ControlButton(JSContext *cx, JS::HandleObjec
         p->parentProto = jsb_cocos2d_extension_Control_prototype;
         _js_global_type_map.insert(std::make_pair(typeName, p));
     }
-    anonEvaluate(cx, global, "(function () { cc.ControlButton.extend = cc.Class.extend; })()");
 }
 
 JSClass  *jsb_cocos2d_extension_ControlHuePicker_class;
@@ -2620,7 +2619,6 @@ void js_register_cocos2dx_extension_ControlColourPicker(JSContext *cx, JS::Handl
         p->parentProto = jsb_cocos2d_extension_Control_prototype;
         _js_global_type_map.insert(std::make_pair(typeName, p));
     }
-    anonEvaluate(cx, global, "(function () { cc.ControlColourPicker.extend = cc.Class.extend; })()");
 }
 
 JSClass  *jsb_cocos2d_extension_ControlPotentiometer_class;
@@ -3199,7 +3197,6 @@ void js_register_cocos2dx_extension_ControlPotentiometer(JSContext *cx, JS::Hand
         p->parentProto = jsb_cocos2d_extension_Control_prototype;
         _js_global_type_map.insert(std::make_pair(typeName, p));
     }
-    anonEvaluate(cx, global, "(function () { cc.ControlPotentiometer.extend = cc.Class.extend; })()");
 }
 
 JSClass  *jsb_cocos2d_extension_ControlSlider_class;
@@ -4047,7 +4044,6 @@ void js_register_cocos2dx_extension_ControlSlider(JSContext *cx, JS::HandleObjec
         p->parentProto = jsb_cocos2d_extension_Control_prototype;
         _js_global_type_map.insert(std::make_pair(typeName, p));
     }
-    anonEvaluate(cx, global, "(function () { cc.ControlSlider.extend = cc.Class.extend; })()");
 }
 
 JSClass  *jsb_cocos2d_extension_ControlStepper_class;
@@ -4684,7 +4680,6 @@ void js_register_cocos2dx_extension_ControlStepper(JSContext *cx, JS::HandleObje
         p->parentProto = jsb_cocos2d_extension_Control_prototype;
         _js_global_type_map.insert(std::make_pair(typeName, p));
     }
-    anonEvaluate(cx, global, "(function () { cc.ControlStepper.extend = cc.Class.extend; })()");
 }
 
 JSClass  *jsb_cocos2d_extension_ControlSwitch_class;
@@ -5198,7 +5193,6 @@ void js_register_cocos2dx_extension_ControlSwitch(JSContext *cx, JS::HandleObjec
         p->parentProto = jsb_cocos2d_extension_Control_prototype;
         _js_global_type_map.insert(std::make_pair(typeName, p));
     }
-    anonEvaluate(cx, global, "(function () { cc.ControlSwitch.extend = cc.Class.extend; })()");
 }
 
 JSClass  *jsb_cocos2d_extension_ScrollView_class;
@@ -6102,7 +6096,6 @@ void js_register_cocos2dx_extension_ScrollView(JSContext *cx, JS::HandleObject g
         p->parentProto = jsb_cocos2d_Layer_prototype;
         _js_global_type_map.insert(std::make_pair(typeName, p));
     }
-    anonEvaluate(cx, global, "(function () { cc.ScrollView.extend = cc.Class.extend; })()");
 }
 
 JSClass  *jsb_cocos2d_extension_TableViewCell_class;
@@ -6292,7 +6285,6 @@ void js_register_cocos2dx_extension_TableViewCell(JSContext *cx, JS::HandleObjec
         p->parentProto = jsb_cocos2d_Node_prototype;
         _js_global_type_map.insert(std::make_pair(typeName, p));
     }
-    anonEvaluate(cx, global, "(function () { cc.TableViewCell.extend = cc.Class.extend; })()");
 }
 
 JSClass  *jsb_cocos2d_extension_TableView_class;
@@ -6695,7 +6687,6 @@ void js_register_cocos2dx_extension_TableView(JSContext *cx, JS::HandleObject gl
         p->parentProto = jsb_cocos2d_extension_ScrollView_prototype;
         _js_global_type_map.insert(std::make_pair(typeName, p));
     }
-    anonEvaluate(cx, global, "(function () { cc.TableView.extend = cc.Class.extend; })()");
 }
 
 JSClass  *jsb_cocos2d_extension_EventAssetsManagerEx_class;

@@ -60,11 +60,11 @@ void UICheckBoxTest::selectedEvent(Ref* pSender,CheckBox::EventType type)
     switch (type)
     {
         case CheckBox::EventType::SELECTED:
-            _displayValueLabel->setString(StringUtils::format("Selected"));
+            _displayValueLabel->setString(String::createWithFormat("Selected")->getCString());
             break;
             
         case CheckBox::EventType::UNSELECTED:
-            _displayValueLabel->setString(StringUtils::format("Unselected"));
+            _displayValueLabel->setString(String::createWithFormat("Unselected")->getCString());
             break;
             
         default:

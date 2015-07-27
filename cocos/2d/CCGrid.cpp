@@ -245,17 +245,17 @@ void GridBase::afterDraw(cocos2d::Node *target)
 
 void GridBase::blit(void)
 {
-    CCASSERT(0, "Subclass should implement it.");
+    CCASSERT(0, "");
 }
 
 void GridBase::reuse(void)
 {
-    CCASSERT(0, "Subclass should implement it!");
+    CCASSERT(0, "");
 }
 
 void GridBase::calculateVertexPoints(void)
 {
-    CCASSERT(0, "Subclass should implement it.");
+    CCASSERT(0, "");
 }
 
 // implementation of Grid3D

@@ -897,16 +897,6 @@ func
 },
 
 /**
- * @method stopActionsByFlags
- * @param {unsigned int} arg0
- */
-stopActionsByFlags : function (
-int 
-)
-{
-},
-
-/**
  * @method setNormalizedPosition
  * @param {vec2_object} arg0
  */
@@ -1715,6 +1705,14 @@ bool
  */
 setOpacity : function (
 char 
+)
+{
+},
+
+/**
+ * @method cleanup
+ */
+cleanup : function (
 )
 {
 },
@@ -3247,16 +3245,6 @@ getTarget : function (
 },
 
 /**
- * @method getFlags
- * @return {unsigned int}
- */
-getFlags : function (
-)
-{
-    return 0;
-},
-
-/**
  * @method step
  * @param {float} arg0
  */
@@ -3271,16 +3259,6 @@ float
  * @param {int} arg0
  */
 setTag : function (
-int 
-)
-{
-},
-
-/**
- * @method setFlags
- * @param {unsigned int} arg0
- */
-setFlags : function (
 int 
 )
 {
@@ -5196,18 +5174,6 @@ ReverseTime : function (
 cc.Animate = {
 
 /**
- * @method initWithAnimation
- * @param {cc.Animation} arg0
- * @return {bool}
- */
-initWithAnimation : function (
-animation 
-)
-{
-    return false;
-},
-
-/**
  * @method getAnimation
 * @return {cc.Animation|cc.Animation}
 */
@@ -5218,13 +5184,15 @@ getAnimation : function(
 },
 
 /**
- * @method getCurrentFrameIndex
- * @return {int}
+ * @method initWithAnimation
+ * @param {cc.Animation} arg0
+ * @return {bool}
  */
-getCurrentFrameIndex : function (
+initWithAnimation : function (
+animation 
 )
 {
-    return 0;
+    return false;
 },
 
 /**
@@ -6118,18 +6086,6 @@ str
 },
 
 /**
- * @method getFileSize
- * @param {String} arg0
- * @return {long}
- */
-getFileSize : function (
-str 
-)
-{
-    return 0;
-},
-
-/**
  * @method getValueMapFromData
  * @param {char} arg0
  * @param {int} arg1
@@ -6166,17 +6122,15 @@ array
 },
 
 /**
- * @method writeStringToFile
+ * @method getFileSize
  * @param {String} arg0
- * @param {String} arg1
- * @return {bool}
+ * @return {long}
  */
-writeStringToFile : function (
-str, 
+getFileSize : function (
 str 
 )
 {
-    return false;
+    return 0;
 },
 
 /**
@@ -6211,20 +6165,6 @@ str,
 bool 
 )
 {
-},
-
-/**
- * @method writeValueVectorToFile
- * @param {Array} arg0
- * @param {String} arg1
- * @return {bool}
- */
-writeValueVectorToFile : function (
-array, 
-str 
-)
-{
-    return false;
 },
 
 /**
@@ -6271,20 +6211,6 @@ str
 )
 {
     return ;
-},
-
-/**
- * @method writeValueMapToFile
- * @param {map_object} arg0
- * @param {String} arg1
- * @return {bool}
- */
-writeValueMapToFile : function (
-map, 
-str 
-)
-{
-    return false;
 },
 
 /**
@@ -9566,18 +9492,6 @@ node
 },
 
 /**
- * @method removeActionsByFlags
- * @param {unsigned int} arg0
- * @param {cc.Node} arg1
- */
-removeActionsByFlags : function (
-int, 
-node 
-)
-{
-},
-
-/**
  * @method removeAllActions
  */
 removeAllActions : function (
@@ -11526,6 +11440,268 @@ DrawNode : function (
 };
 
 /**
+ * @class SpriteBatchNode
+ */
+cc.SpriteBatchNode = {
+
+/**
+ * @method appendChild
+ * @param {cc.Sprite} arg0
+ */
+appendChild : function (
+sprite 
+)
+{
+},
+
+/**
+ * @method addSpriteWithoutQuad
+ * @param {cc.Sprite} arg0
+ * @param {int} arg1
+ * @param {int} arg2
+ * @return {cc.SpriteBatchNode}
+ */
+addSpriteWithoutQuad : function (
+sprite, 
+int, 
+int 
+)
+{
+    return cc.SpriteBatchNode;
+},
+
+/**
+ * @method reorderBatch
+ * @param {bool} arg0
+ */
+reorderBatch : function (
+bool 
+)
+{
+},
+
+/**
+ * @method initWithTexture
+ * @param {cc.Texture2D} arg0
+ * @param {long} arg1
+ * @return {bool}
+ */
+initWithTexture : function (
+texture2d, 
+long 
+)
+{
+    return false;
+},
+
+/**
+ * @method getBlendFunc
+ * @return {cc.BlendFunc}
+ */
+getBlendFunc : function (
+)
+{
+    return cc.BlendFunc;
+},
+
+/**
+ * @method lowestAtlasIndexInChild
+ * @param {cc.Sprite} arg0
+ * @return {long}
+ */
+lowestAtlasIndexInChild : function (
+sprite 
+)
+{
+    return 0;
+},
+
+/**
+ * @method atlasIndexForChild
+ * @param {cc.Sprite} arg0
+ * @param {int} arg1
+ * @return {long}
+ */
+atlasIndexForChild : function (
+sprite, 
+int 
+)
+{
+    return 0;
+},
+
+/**
+ * @method setTextureAtlas
+ * @param {cc.TextureAtlas} arg0
+ */
+setTextureAtlas : function (
+textureatlas 
+)
+{
+},
+
+/**
+ * @method initWithFile
+ * @param {String} arg0
+ * @param {long} arg1
+ * @return {bool}
+ */
+initWithFile : function (
+str, 
+long 
+)
+{
+    return false;
+},
+
+/**
+ * @method getTexture
+ * @return {cc.Texture2D}
+ */
+getTexture : function (
+)
+{
+    return cc.Texture2D;
+},
+
+/**
+ * @method increaseAtlasCapacity
+ */
+increaseAtlasCapacity : function (
+)
+{
+},
+
+/**
+ * @method getTextureAtlas
+ * @return {cc.TextureAtlas}
+ */
+getTextureAtlas : function (
+)
+{
+    return cc.TextureAtlas;
+},
+
+/**
+ * @method insertQuadFromSprite
+ * @param {cc.Sprite} arg0
+ * @param {long} arg1
+ */
+insertQuadFromSprite : function (
+sprite, 
+long 
+)
+{
+},
+
+/**
+ * @method setTexture
+ * @param {cc.Texture2D} arg0
+ */
+setTexture : function (
+texture2d 
+)
+{
+},
+
+/**
+ * @method rebuildIndexInOrder
+ * @param {cc.Sprite} arg0
+ * @param {long} arg1
+ * @return {long}
+ */
+rebuildIndexInOrder : function (
+sprite, 
+long 
+)
+{
+    return 0;
+},
+
+/**
+ * @method highestAtlasIndexInChild
+ * @param {cc.Sprite} arg0
+ * @return {long}
+ */
+highestAtlasIndexInChild : function (
+sprite 
+)
+{
+    return 0;
+},
+
+/**
+ * @method removeChildAtIndex
+ * @param {long} arg0
+ * @param {bool} arg1
+ */
+removeChildAtIndex : function (
+long, 
+bool 
+)
+{
+},
+
+/**
+ * @method removeSpriteFromAtlas
+ * @param {cc.Sprite} arg0
+ */
+removeSpriteFromAtlas : function (
+sprite 
+)
+{
+},
+
+/**
+ * @method setBlendFunc
+ * @param {cc.BlendFunc} arg0
+ */
+setBlendFunc : function (
+blendfunc 
+)
+{
+},
+
+/**
+ * @method create
+ * @param {String} arg0
+ * @param {long} arg1
+ * @return {cc.SpriteBatchNode}
+ */
+create : function (
+str, 
+long 
+)
+{
+    return cc.SpriteBatchNode;
+},
+
+/**
+ * @method createWithTexture
+ * @param {cc.Texture2D} arg0
+ * @param {long} arg1
+ * @return {cc.SpriteBatchNode}
+ */
+createWithTexture : function (
+texture2d, 
+long 
+)
+{
+    return cc.SpriteBatchNode;
+},
+
+/**
+ * @method SpriteBatchNode
+ * @constructor
+ */
+SpriteBatchNode : function (
+)
+{
+},
+
+};
+
+/**
  * @class Label
  */
 cc.Label = {
@@ -11598,16 +11774,6 @@ getTextColor : function (
 )
 {
     return cc.Color4B;
-},
-
-/**
- * @method getBlendFunc
- * @return {cc.BlendFunc}
- */
-getBlendFunc : function (
-)
-{
-    return cc.BlendFunc;
 },
 
 /**
@@ -11762,16 +11928,6 @@ getAdditionalKerning : function (
 )
 {
     return 0;
-},
-
-/**
- * @method removeAllChildrenWithCleanup
- * @param {bool} arg0
- */
-removeAllChildrenWithCleanup : function (
-bool 
-)
-{
 },
 
 /**
@@ -11932,16 +12088,6 @@ getSystemFontSize : function (
 )
 {
     return 0;
-},
-
-/**
- * @method setBlendFunc
- * @param {cc.BlendFunc} arg0
- */
-setBlendFunc : function (
-blendfunc 
-)
-{
 },
 
 /**
@@ -20561,268 +20707,6 @@ getInstance : function (
  * @constructor
  */
 AnimationCache : function (
-)
-{
-},
-
-};
-
-/**
- * @class SpriteBatchNode
- */
-cc.SpriteBatchNode = {
-
-/**
- * @method appendChild
- * @param {cc.Sprite} arg0
- */
-appendChild : function (
-sprite 
-)
-{
-},
-
-/**
- * @method addSpriteWithoutQuad
- * @param {cc.Sprite} arg0
- * @param {int} arg1
- * @param {int} arg2
- * @return {cc.SpriteBatchNode}
- */
-addSpriteWithoutQuad : function (
-sprite, 
-int, 
-int 
-)
-{
-    return cc.SpriteBatchNode;
-},
-
-/**
- * @method reorderBatch
- * @param {bool} arg0
- */
-reorderBatch : function (
-bool 
-)
-{
-},
-
-/**
- * @method initWithTexture
- * @param {cc.Texture2D} arg0
- * @param {long} arg1
- * @return {bool}
- */
-initWithTexture : function (
-texture2d, 
-long 
-)
-{
-    return false;
-},
-
-/**
- * @method getBlendFunc
- * @return {cc.BlendFunc}
- */
-getBlendFunc : function (
-)
-{
-    return cc.BlendFunc;
-},
-
-/**
- * @method lowestAtlasIndexInChild
- * @param {cc.Sprite} arg0
- * @return {long}
- */
-lowestAtlasIndexInChild : function (
-sprite 
-)
-{
-    return 0;
-},
-
-/**
- * @method atlasIndexForChild
- * @param {cc.Sprite} arg0
- * @param {int} arg1
- * @return {long}
- */
-atlasIndexForChild : function (
-sprite, 
-int 
-)
-{
-    return 0;
-},
-
-/**
- * @method setTextureAtlas
- * @param {cc.TextureAtlas} arg0
- */
-setTextureAtlas : function (
-textureatlas 
-)
-{
-},
-
-/**
- * @method initWithFile
- * @param {String} arg0
- * @param {long} arg1
- * @return {bool}
- */
-initWithFile : function (
-str, 
-long 
-)
-{
-    return false;
-},
-
-/**
- * @method getTexture
- * @return {cc.Texture2D}
- */
-getTexture : function (
-)
-{
-    return cc.Texture2D;
-},
-
-/**
- * @method increaseAtlasCapacity
- */
-increaseAtlasCapacity : function (
-)
-{
-},
-
-/**
- * @method getTextureAtlas
- * @return {cc.TextureAtlas}
- */
-getTextureAtlas : function (
-)
-{
-    return cc.TextureAtlas;
-},
-
-/**
- * @method insertQuadFromSprite
- * @param {cc.Sprite} arg0
- * @param {long} arg1
- */
-insertQuadFromSprite : function (
-sprite, 
-long 
-)
-{
-},
-
-/**
- * @method setTexture
- * @param {cc.Texture2D} arg0
- */
-setTexture : function (
-texture2d 
-)
-{
-},
-
-/**
- * @method rebuildIndexInOrder
- * @param {cc.Sprite} arg0
- * @param {long} arg1
- * @return {long}
- */
-rebuildIndexInOrder : function (
-sprite, 
-long 
-)
-{
-    return 0;
-},
-
-/**
- * @method highestAtlasIndexInChild
- * @param {cc.Sprite} arg0
- * @return {long}
- */
-highestAtlasIndexInChild : function (
-sprite 
-)
-{
-    return 0;
-},
-
-/**
- * @method removeChildAtIndex
- * @param {long} arg0
- * @param {bool} arg1
- */
-removeChildAtIndex : function (
-long, 
-bool 
-)
-{
-},
-
-/**
- * @method removeSpriteFromAtlas
- * @param {cc.Sprite} arg0
- */
-removeSpriteFromAtlas : function (
-sprite 
-)
-{
-},
-
-/**
- * @method setBlendFunc
- * @param {cc.BlendFunc} arg0
- */
-setBlendFunc : function (
-blendfunc 
-)
-{
-},
-
-/**
- * @method create
- * @param {String} arg0
- * @param {long} arg1
- * @return {cc.SpriteBatchNode}
- */
-create : function (
-str, 
-long 
-)
-{
-    return cc.SpriteBatchNode;
-},
-
-/**
- * @method createWithTexture
- * @param {cc.Texture2D} arg0
- * @param {long} arg1
- * @return {cc.SpriteBatchNode}
- */
-createWithTexture : function (
-texture2d, 
-long 
-)
-{
-    return cc.SpriteBatchNode;
-},
-
-/**
- * @method SpriteBatchNode
- * @constructor
- */
-SpriteBatchNode : function (
 )
 {
 },

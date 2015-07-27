@@ -37,9 +37,9 @@ public:
     
 protected:
     virtual bool init() override;
-    virtual void initRenderer()override;
+    virtual void initRenderer();
     
-    virtual void removeAllChildren()override;
+    virtual void removeAllChildren();
     
 protected:
     cocos2d::ParticleSystem* _emitter;

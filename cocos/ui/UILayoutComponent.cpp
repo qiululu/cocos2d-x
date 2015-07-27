@@ -21,7 +21,7 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
  ****************************************************************************/
-#include "UIPageView.h"
+
 #include "UILayoutComponent.h"
 #include "2d/CCNode.h"
 #include "GUIDefine.h"
@@ -667,21 +667,7 @@ namespace ui {
         _owner->setPosition(ownerPosition);
         _owner->setContentSize(ownerSize);
 
-        if (typeid(*_owner) == typeid(PageView))
-        {
-            PageView* page = static_cast<PageView*>(_owner);
-            page->forceDoLayout();
-
-            Vector<Layout*> _layoutVector = page->getPages();
-            for(auto& item : _layoutVector)
-            {
-                ui::Helper::doLayout(item);
-            }
-        }
-        else
-        {
-            ui::Helper::doLayout(_owner);
-        }
+        ui::Helper::doLayout(_owner);
     }
 
     void LayoutComponent::setActiveEnabled(bool enable)

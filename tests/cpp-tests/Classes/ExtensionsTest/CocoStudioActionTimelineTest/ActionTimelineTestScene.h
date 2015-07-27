@@ -15,7 +15,7 @@ public:
 class ActionTimelineBaseTest : public TestCase
 {
 public:
-    virtual std::string title() const override;
+    virtual std::string title() const;
 
     virtual bool init() override;
 

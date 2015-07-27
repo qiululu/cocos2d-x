@@ -252,8 +252,8 @@ int ZipUtils::inflateGZipFile(const char *path, unsigned char **out)
     int len;
     unsigned int offset = 0;
     
-    CCASSERT(out, "out can't be nullptr.");
-    CCASSERT(&*out, "&*out can't be nullptr.");
+    CCASSERT(out, "");
+    CCASSERT(&*out, "");
     
     gzFile inFile = gzopen(path, "rb");
     if( inFile == nullptr ) {

@@ -38,13 +38,13 @@
 -- @return bool#bool ret (return value: bool)
         
 --------------------------------
--- Jump to a page with a given index without scrolling.<br>
--- This is the different between scrollToPage.<br>
--- param index A given index in PageView. Index start from 0 to pageCount -1.
--- @function [parent=#PageView] setCurPageIndex 
+-- brief Get a page at a given index<br>
+-- param index A given index.<br>
+-- return A layout pointer in PageView container.
+-- @function [parent=#PageView] getPage 
 -- @param self
 -- @param #long index
--- @return PageView#PageView self (return value: ccui.PageView)
+-- @return Layout#Layout ret (return value: ccui.Layout)
         
 --------------------------------
 -- Remove a page of PageView.<br>
@@ -91,20 +91,11 @@
         
 --------------------------------
 -- Scroll to a page with a given index.<br>
--- param idx   A given index in the PageView. Index start from 0 to pageCount -1.
+-- param idx   A given index in the PageView.
 -- @function [parent=#PageView] scrollToPage 
 -- @param self
 -- @param #long idx
 -- @return PageView#PageView self (return value: ccui.PageView)
-        
---------------------------------
--- brief Get a page at a given index<br>
--- param index A given index.<br>
--- return A layout pointer in PageView container.
--- @function [parent=#PageView] getPage 
--- @param self
--- @param #long index
--- @return Layout#Layout ret (return value: ccui.Layout)
         
 --------------------------------
 -- Remove a page at a given index of PageView.<br>

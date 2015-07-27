@@ -103,12 +103,12 @@ namespace experimental{
             /**
              * Pauses playback.
              */
-            virtual void pause()override;
+            virtual void pause();
 
             /**
              * Resumes playback.
              */
-            virtual void resume()override;
+            virtual void resume();
 
             /**
              * Stops playback.

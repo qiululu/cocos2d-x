@@ -42,7 +42,7 @@ bool ActionTimelineBaseTest::init()
 
         addChild(bg);
 
-        setGLProgram(GLProgramCache::getInstance()->getGLProgram(GLProgram::SHADER_NAME_POSITION_TEXTURE_COLOR));
+        setGLProgram(ShaderCache::getInstance()->getGLProgram(GLProgram::SHADER_NAME_POSITION_TEXTURE_COLOR));
 
         return true;
     }

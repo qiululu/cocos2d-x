@@ -35,7 +35,7 @@ ListView::ListView():
 _model(nullptr),
 _gravity(Gravity::CENTER_VERTICAL),
 _itemsMargin(0.0f),
-_curSelectedIndex(-1),
+_curSelectedIndex(0),
 _refreshViewDirty(true),
 _listViewEventListener(nullptr),
 _listViewEventSelector(nullptr),
@@ -230,7 +230,14 @@ void ListView::insertDefaultItem(ssize_t index)
     {
         return;
     }
-    insertCustomItem(_model->clone(), index);
+    Widget* newItem = _model->clone();
+    
+    _items.insert(index, newItem);
+    ScrollView::addChild(newItem);
+
+    remedyLayoutParameter(newItem);
+    
+    _refreshViewDirty = true;
 }
 
 
@@ -278,18 +285,6 @@ void ListView::removeChild(cocos2d::Node *child, bool cleaup)
     Widget* widget = dynamic_cast<Widget*>(child);
     if (nullptr != widget)
     {
-        if (-1 != _curSelectedIndex)
-        {
-            auto removedIndex = getIndex(widget);
-            if (_curSelectedIndex > removedIndex)
-            {
-                _curSelectedIndex -= 1;
-            }
-            else if (_curSelectedIndex == removedIndex)
-            {
-                _curSelectedIndex = -1;
-            }
-        }
         _items.eraseObject(widget);
     }
    
@@ -305,18 +300,10 @@ void ListView::removeAllChildrenWithCleanup(bool cleanup)
 {
     ScrollView::removeAllChildrenWithCleanup(cleanup);
     _items.clear();
-    _curSelectedIndex = -1;
 }
 
 void ListView::insertCustomItem(Widget* item, ssize_t index)
 {
-    if (-1 != _curSelectedIndex)
-    {
-        if (_curSelectedIndex >= index)
-        {
-            _curSelectedIndex += 1;
-        }
-    }
     _items.insert(index, item);
     ScrollView::addChild(item);
 
