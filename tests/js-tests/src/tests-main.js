@@ -176,7 +176,7 @@ var TestController = cc.LayerGradient.extend({
                     return true;
                 }
             }, this);
-       }
+        }
     },
     onEnter:function(){
         this._super();
@@ -376,6 +376,14 @@ var testNames = [
         linksrc:"src/EffectsAdvancedTest/EffectsAdvancedTest.js",
         testScene:function () {
             return new EffectAdvanceScene();
+        }
+    },
+    {
+        title:"Native Test",
+        platforms: PLATFORM_JSB,
+        linksrc:"src/NativeTest/NativeTest.js",
+        testScene:function () {
+            return new NativeTestScene();
         }
     },
     //{
