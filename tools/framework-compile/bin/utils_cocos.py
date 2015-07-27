@@ -1,5 +1,5 @@
 #!/usr/bin/python
-#-*- coding: utf-8 -*-
+#-*- coding: UTF-8 -*-
 
 import os
 import sys
@@ -18,9 +18,6 @@ def is_32bit_windows():
 
 def os_is_mac():
     return sys.platform == 'darwin'
-
-def os_is_linux():
-    return sys.platform == "linux" or sys.platform == "linux2"
 
 def convert_to_python_path(path):
     return path.replace("\\","/")
@@ -95,25 +92,26 @@ def get_vs_cmd_path(vs_version):
         reg_flag_list = [ _winreg.KEY_WOW64_64KEY, _winreg.KEY_WOW64_32KEY ]
 
     # Find VS path
-    msbuild_path = None
+    vsPath = None
     for reg_flag in reg_flag_list:
         try:
             vs = _winreg.OpenKey(
                 _winreg.HKEY_LOCAL_MACHINE,
-                r"SOFTWARE\Microsoft\MSBuild\ToolsVersions\%s" % vs_ver,
+                r"SOFTWARE\Microsoft\VisualStudio",
                 0,
                 _winreg.KEY_READ | reg_flag
             )
-            msbuild_path, type = _winreg.QueryValueEx(vs, 'MSBuildToolsPath')
+            key = _winreg.OpenKey(vs, r"SxS\VS7")
+            vsPath, type = _winreg.QueryValueEx(key, vs_ver)
         except:
             continue
 
-        if msbuild_path is not None and os.path.exists(msbuild_path):
+        if vsPath is not None:
             break
 
     # generate devenv path
-    if msbuild_path is not None:
-        commandPath = os.path.join(msbuild_path, "MSBuild.exe")
+    if vsPath is not None:
+        commandPath = os.path.join(vsPath, "Common7", "IDE", "devenv")
     else:
         commandPath = None
 

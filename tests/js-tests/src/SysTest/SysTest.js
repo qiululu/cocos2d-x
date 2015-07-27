@@ -34,8 +34,9 @@ var SysTestBase = BaseTestLayer.extend({
     _subtitle:"",
 
     ctor:function() {
-        this._super(cc.color(0,0,0,0), cc.color(98,99,117,0));
+        this._super(cc.color(0,0,0,255), cc.color(98,99,117,255));
     },
+
     onRestartCallback:function (sender) {
         var s = new SysTestScene();
         s.addChild(restartSysTest());
@@ -60,35 +61,6 @@ var SysTestBase = BaseTestLayer.extend({
         return sysTestSceneIdx;
     }
 
-});
-
-//------------------------------------------------------------------
-//
-// setClearColorTest
-//
-//------------------------------------------------------------------
-var setClearColorTest = SysTestBase.extend({
-    _title:"Set clearColor to red with alpha = 0 ",
-    ctor:function()
-    {
-        this._super();
-        var bg = new cc.Sprite(s_back,cc.rect(0,0, 200, 200));
-        bg.x = winSize.width/2;
-        bg.y = winSize.height/2;
-        this.addChild(bg);
-        return true;
-    },
-    onEnter:function()
-    {
-        this._super();
-        var clearColor = cc.color(255, 0, 0, 0);
-        director.setClearColor(clearColor);
-    },
-    onExit:function()
-    {
-        director.setClearColor(cc.color(0, 0, 0, 255));
-        this._super();
-    }
 });
 
 //------------------------------------------------------------------
@@ -164,6 +136,7 @@ var SysTestScene = TestScene.extend({
         sysTestSceneIdx = (num || num == 0) ? (num - 1) : -1;
         var layer = nextSysTest();
         this.addChild(layer);
+
         director.runScene(this);
     }
 });
@@ -348,8 +321,7 @@ var OpenURLTest = SysTestBase.extend({
 var arrayOfSysTest = [
     LocalStorageTest,
     CapabilitiesTest,
-    OpenURLTest,
-    setClearColorTest
+    OpenURLTest
 ];
 
 if (cc.sys.isNative && cc.sys.OS_WINDOWS != cc.sys.os) {

@@ -161,9 +161,6 @@
         var node = new cc.Node();
 
         this.generalAttributes(node, json);
-        var color = json["CColor"];
-        if(color != null)
-            node.setColor(getColor(color));
 
         return node;
     };
@@ -220,6 +217,8 @@
         var node,
             self = this;
         loadTexture(json["FileData"], resourcePath, function(path, type){
+            if(!cc.loader.getRes(path))
+                cc.log("%s need to be preloaded", path);
             node = new cc.ParticleSystem(path);
             self.generalAttributes(node, json);
             node.setPositionType(cc.ParticleSystem.TYPE_GROUPED);
@@ -349,8 +348,8 @@
             positionXPercent = PrePosition["X"] || 0;
             positionYPercent = PrePosition["Y"] || 0;
         }
-        var sizeXPercentEnable = json["PercentWidthEnable"] || json["PercentWidthEnabled"]  || false;
-        var sizeYPercentEnable = json["PercentHeightEnable"]|| json["PercentHeightEnabled"]  || false;
+        var sizeXPercentEnable = json["PercentWidthEnable"] || false;
+        var sizeYPercentEnable = json["PercentHeightEnable"] || false;
         var sizeXPercent = 0,
             sizeYPercent = 0,
             PreSize = json["PreSize"];
@@ -548,7 +547,7 @@
                 if (cc.sys.isNative) {
                     fontName = cc.path.join(cc.loader.resPath, resourcePath, path);
                 } else {
-                    fontName = path.match(/([^\/]+)\.(\S+)/);
+                    fontName = path.match(/([^\/]+)\.ttf/);
                     fontName = fontName ? fontName[1] : "";
                 }
                 widget.setFontName(fontName);
@@ -632,7 +631,7 @@
                 if (cc.sys.isNative) {
                     fontName = cc.path.join(cc.loader.resPath, resourcePath, path);
                 } else {
-                    fontName = path.match(/([^\/]+)\.(\S+)/);
+                    fontName = path.match(/([^\/]+)\.ttf/);
                     fontName = fontName ? fontName[1] : "";
                 }
                 widget.setTitleFontName(fontName);
@@ -857,6 +856,8 @@
         ];
         textureList.forEach(function(item){
             loadTexture(json[item.name], resourcePath, function(path, type){
+                if(type === 0 && !loader.getRes(path))
+                    cc.log("%s need to be preloaded", path);
                 item.handle.call(widget, path, type);
             });
         });
@@ -1021,6 +1022,8 @@
         var startCharMap = json["StartChar"];
 
         loadTexture(json["LabelAtlasFileImage_CNB"], resourcePath, function(path, type){
+            if(!cc.loader.getRes(path))
+                cc.log("%s need to be preloaded", path);
             if(type === 0){
                 widget.setProperty(stringValue, path, itemWidth, itemHeight, startCharMap);
             }
@@ -1045,6 +1048,8 @@
         widget.setString(text);
 
         loadTexture(json["LabelBMFontFile_CNB"], resourcePath, function(path, type){
+            if(!cc.loader.getRes(path))
+                cc.log("%s need to be pre loaded", path);
             widget.setFntFile(path);
         });
         widget.ignoreContentAdaptWithSize(true);
@@ -1101,7 +1106,7 @@
                 if (cc.sys.isNative) {
                     fontName = cc.path.join(cc.loader.resPath, resourcePath, path);
                 } else {
-                    fontName = path.match(/([^\/]+)\.(\S+)/);
+                    fontName = path.match(/([^\/]+)\.ttf/);
                     fontName = fontName ? fontName[1] : "";
                 }
                 widget.setFontName(fontName);
@@ -1217,6 +1222,8 @@
 
         var currentAnimationName = json["CurrentAnimationName"];
 
+        parser.generalAttributes(node, json);
+
         loadTexture(json["FileData"], resourcePath, function(path, type){
             var plists, pngs;
             var armJson = cc.loader.getRes(path);
@@ -1234,15 +1241,8 @@
             node.init(getFileName(path));
             if(isAutoPlay)
                 node.getAnimation().play(currentAnimationName, -1, isLoop);
-            else{
-                node.getAnimation().play(currentAnimationName);
-                node.getAnimation().gotoAndPause(0);
-            }
 
         });
-
-        parser.generalAttributes(node, json);
-
         node.setColor(getColor(json["CColor"]));
         return node;
     };
@@ -1262,16 +1262,13 @@
                     loadedPlist[resourcePath + plist] = true;
                     cc.spriteFrameCache.addSpriteFrames(resourcePath + plist);
                 }else{
-                    if(!loadedPlist[resourcePath + plist] && !cc.spriteFrameCache.getSpriteFrame(path))
+                    if(!loadedPlist[resourcePath + plist])
                         cc.log("%s need to be preloaded", resourcePath + plist);
                 }
             }
-            if(type !== 0){
-                if(cc.spriteFrameCache.getSpriteFrame(path))
-                    cb(path, type);
-                else
-                    cc.log("failed to get spriteFrame: %s", path);
-            }else
+            if(type !== 0)
+                cb(path, type);
+            else
                 cb(resourcePath + path, type);
         }
     };

@@ -1296,7 +1296,7 @@ void Widget::copyProperties(Widget *widget)
 
     float Widget::getScale()const
     {
-        CCASSERT(this->getScaleX() == this->getScaleY(), "scaleX should be equal to scaleY.");
+        CCASSERT(this->getScaleX() == this->getScaleY(), "");
         return this->getScaleX();
     }
 

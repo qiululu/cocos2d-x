@@ -48,7 +48,7 @@ public:
     virtual void onExit() override;
     cocos2d::Node* createGameScene();
 private:
-	void defaultPlay()override;
+	void defaultPlay();
 };
 
 
@@ -66,7 +66,7 @@ public:
     cocos2d::Node* createGameScene();
 
 private:
-	void defaultPlay()override;
+	void defaultPlay();
 };
 
 class ArmatureComponentTest : public SceneEditorTestBase
@@ -83,7 +83,7 @@ public:
     cocos2d::Node* createGameScene();
 
 private:
-	void defaultPlay()override;
+	void defaultPlay();
 };
 
 class UIComponentTest : public SceneEditorTestBase
@@ -100,7 +100,7 @@ public:
     cocos2d::Node* createGameScene();
 	void touchEvent(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type);
 private:
-	void defaultPlay()override;
+	void defaultPlay();
 };
 
 class TmxMapComponentTest : public SceneEditorTestBase
@@ -116,7 +116,7 @@ public:
     virtual void onExit() override;
     cocos2d::Node* createGameScene();
 private:
-	void defaultPlay()override;
+	void defaultPlay();
 
 };
 
@@ -133,7 +133,7 @@ public:
     virtual void onExit() override;
     cocos2d::Node* createGameScene();
 protected:
-	void defaultPlay()override;
+	void defaultPlay();
 };
 
 class EffectComponentTest : public SceneEditorTestBase
@@ -150,7 +150,7 @@ public:
     cocos2d::Node* createGameScene();
     void animationEvent(cocostudio::Armature *armature, cocostudio::MovementEventType movementType, const std::string& movementID);
 private:
-	void defaultPlay()override;
+	void defaultPlay();
 	
 };
 
@@ -167,7 +167,7 @@ public:
     virtual void onExit() override;
     cocos2d::Node* createGameScene();
 private:
-	void defaultPlay()override;
+	void defaultPlay();
 };
 
 class AttributeComponentTest : public SceneEditorTestBase
@@ -185,7 +185,7 @@ public:
     cocos2d::Node* createGameScene();
     
 private:
-	void defaultPlay()override;
+	void defaultPlay();
 };
 
 class TriggerTest : public SceneEditorTestBase
@@ -213,7 +213,7 @@ public:
     cocos2d::Node* createGameScene();
   
 private:
-    void defaultPlay()override;
+    void defaultPlay();
 
     cocos2d::EventListener* _touchListener;
 };

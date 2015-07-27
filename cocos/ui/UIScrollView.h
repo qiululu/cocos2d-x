@@ -99,8 +99,7 @@ public:
         BOUNCE_TOP,
         BOUNCE_BOTTOM,
         BOUNCE_LEFT,
-        BOUNCE_RIGHT,
-        CONTAINER_MOVED
+        BOUNCE_RIGHT
     };
 
     /**
@@ -309,20 +308,6 @@ public:
      * @return The inner container size.
      */
     const Size& getInnerContainerSize() const;
-    
-    /**
-     * Set inner container position
-     *
-     * @param pos Inner container position.
-     */
-    void setInnerContainerPosition(const Vec2 &pos);
-    
-    /**
-     * Get inner container position
-     *
-     * @return The inner container position.
-     */
-    const Vec2 getInnerContainerPosition() const;
 
     /**
      * Add callback function which will be called  when scrollview event triggered.
@@ -463,20 +448,6 @@ public:
      * @return the scroll bar's color
      */
     const Color3B& getScrollBarColor() const;
-    
-    /**
-     * @brief Set the scroll bar's opacity
-     *
-     * @param the scroll bar's opacity
-     */
-    void setScrollBarOpacity(GLubyte opacity);
-    
-    /**
-     * @brief Get the scroll bar's opacity
-     *
-     * @return the scroll bar's opacity
-     */
-    GLubyte getScrollBarOpacity() const;
     
     /**
      * @brief Set scroll bar auto hide state

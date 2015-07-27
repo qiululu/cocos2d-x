@@ -59,7 +59,6 @@ LuaMinXmlHttpRequest::~LuaMinXmlHttpRequest()
 {
     _httpHeader.clear();
     _requestHeader.clear();
-    CC_SAFE_RELEASE_NULL(_httpRequest);
 }
 
 /**
@@ -269,7 +268,7 @@ void LuaMinXmlHttpRequest::_sendRequest()
         release();
     });
     network::HttpClient::getInstance()->sendImmediate(_httpRequest);
-    CC_SAFE_RELEASE_NULL(_httpRequest);
+    _httpRequest->release();
     retain();
 }
 

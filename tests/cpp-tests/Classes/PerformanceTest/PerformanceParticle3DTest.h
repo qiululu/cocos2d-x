@@ -32,7 +32,7 @@ public:
 
     virtual bool init() override;
     virtual std::string title() const override;
-    virtual void doTest()override{};
+    virtual void doTest(){};
 };
 
 #endif

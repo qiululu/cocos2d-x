@@ -134,13 +134,13 @@ void ActionInterval::setAmplitudeRate(float amp)
 {
     CC_UNUSED_PARAM(amp);
     // Abstract class needs implementation
-    CCASSERT(0, "Subclass should implement this method!");
+    CCASSERT(0, "");
 }
 
 float ActionInterval::getAmplitudeRate()
 {
     // Abstract class needs implementation
-    CCASSERT(0, "Subclass should implement this method!");
+    CCASSERT(0, "");
 
     return 0;
 }
@@ -248,8 +248,8 @@ Sequence* Sequence::create(const Vector<FiniteTimeAction*>& arrayOfActions)
 
 bool Sequence::initWithTwoActions(FiniteTimeAction *actionOne, FiniteTimeAction *actionTwo)
 {
-    CCASSERT(actionOne != nullptr, "actionOne can't be nullptr!");
-    CCASSERT(actionTwo != nullptr, "actionTwo can't be nullptr!");
+    CCASSERT(actionOne != nullptr, "");
+    CCASSERT(actionTwo != nullptr, "");
 
     float d = actionOne->getDuration() + actionTwo->getDuration();
     ActionInterval::initWithDuration(d);
@@ -504,7 +504,7 @@ RepeatForever *RepeatForever::create(ActionInterval *action)
 
 bool RepeatForever::initWithAction(ActionInterval *action)
 {
-    CCASSERT(action != nullptr, "action can't be nullptr!");
+    CCASSERT(action != nullptr, "");
     action->retain();
     _innerAction = action;
     return true;
@@ -645,8 +645,8 @@ Spawn* Spawn::createWithTwoActions(FiniteTimeAction *action1, FiniteTimeAction *
 
 bool Spawn::initWithTwoActions(FiniteTimeAction *action1, FiniteTimeAction *action2)
 {
-    CCASSERT(action1 != nullptr, "action1 can't be nullptr!");
-    CCASSERT(action2 != nullptr, "action2 can't be nullptr!");
+    CCASSERT(action1 != nullptr, "");
+    CCASSERT(action2 != nullptr, "");
 
     bool ret = false;
 
@@ -2189,8 +2189,8 @@ ReverseTime* ReverseTime::create(FiniteTimeAction *action)
 
 bool ReverseTime::initWithAction(FiniteTimeAction *action)
 {
-    CCASSERT(action != nullptr, "action can't be nullptr!");
-    CCASSERT(action != _other, "action doesn't equal to _other!");
+    CCASSERT(action != nullptr, "");
+    CCASSERT(action != _other, "");
 
     if (ActionInterval::initWithDuration(action->getDuration()))
     {
@@ -2270,7 +2270,6 @@ Animate::Animate()
 , _executedLoops(0)
 , _animation(nullptr)
 , _frameDisplayedEvent(nullptr)
-, _currFrameIndex(0)
 {
 
 }
@@ -2384,8 +2383,7 @@ void Animate::update(float t)
         float splitTime = _splitTimes->at(i);
 
         if( splitTime <= t ) {
-            _currFrameIndex = i;
-            AnimationFrame* frame = frames.at(_currFrameIndex);
+            AnimationFrame* frame = frames.at(i);
             frameToDisplay = frame->getSpriteFrame();
             static_cast<Sprite*>(_target)->setSpriteFrame(frameToDisplay);
 

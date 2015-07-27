@@ -220,17 +220,17 @@ bool UIRadioButtonTwoGroupsTest::init()
 void UIRadioButtonTwoGroupsTest::onChangedRadioButtonGroup1(RadioButton* radioButton, int index, cocos2d::ui::RadioButtonGroup::EventType type)
 {
     CCASSERT(index == _radioButtonGroups[0]->getSelectedButtonIndex(), "The two indexes must match!");
-    auto text = StringUtils::format("RadioButtonGroup1 : %d", index);
-    _groupEventLabel->setString(text);
-    addLog(text);
+    __String* text = String::createWithFormat("RadioButtonGroup1 : %d", index);
+    _groupEventLabel->setString(text->getCString());
+    addLog(text->getCString());
 }
 
 void UIRadioButtonTwoGroupsTest::onChangedRadioButtonGroup2(RadioButton* radioButton, int index, cocos2d::ui::RadioButtonGroup::EventType type)
 {
     CCASSERT(index == _radioButtonGroups[1]->getSelectedButtonIndex(), "The two indexes must match!");
-    auto text = StringUtils::format("RadioButtonGroup2 : %d", index);
-    _groupEventLabel->setString(text);
-    addLog(text);
+    __String* text = String::createWithFormat("RadioButtonGroup2 : %d", index);
+    _groupEventLabel->setString(text->getCString());
+    addLog(text->getCString());
 }
 
 void UIRadioButtonTwoGroupsTest::onChangedRadioButtonSelect(RadioButton* radioButton, RadioButton::EventType type)
@@ -239,25 +239,25 @@ void UIRadioButtonTwoGroupsTest::onChangedRadioButtonSelect(RadioButton* radioBu
     {
         return;
     }
-    auto text = StringUtils::format("RadioButton %d : ", radioButton->getTag());
+    __String* text = String::createWithFormat("RadioButton %d : ", radioButton->getTag());
     switch (type)
     {
         case RadioButton::EventType::SELECTED:
         {
-            text.append("Selected");
+            text->append("Selected");
             break;
         }
             
         case RadioButton::EventType::UNSELECTED:
         {
-            text.append("Unselected");
+            text->append("Unselected");
             break;
         }
         default:
             break;
     }
-    _buttonEventLabel->setString(text);
-    addLog(text);
+    _buttonEventLabel->setString(text->getCString());
+    addLog(text->getCString());
 }
 
 void UIRadioButtonTwoGroupsTest::clearRadioButtonGroup(Ref* sender)
@@ -317,9 +317,9 @@ bool UIRadioButtonTabTest::init()
         float startPosX = widgetSize.width / 2.0f - ((NUMBER_OF_BUTTONS - 1) / 2.0f) * buttonWidth;
         for(int i = 0; i < NUMBER_OF_BUTTONS; ++i)
         {
-            auto filePathNormal = StringUtils::format("cocosui/btn_exercise%02d_n.png", i + 1);
-            auto filePathSelected = StringUtils::format("cocosui/btn_exercise%02d_p.png", i + 1);
-            RadioButton* radioButton = RadioButton::create(filePathNormal, filePathSelected);
+            __String* filePathNormal = String::createWithFormat("cocosui/btn_exercise%02d_n.png", i + 1);
+            __String* filePathSelected = String::createWithFormat("cocosui/btn_exercise%02d_p.png", i + 1);
+            RadioButton* radioButton = RadioButton::create(filePathNormal->getCString(), filePathSelected->getCString());
             float posX = startPosX + buttonWidth * i;
             radioButton->setPosition(Vec2(posX, widgetSize.height / 2.0f));
             radioButton->setScale(BUTTON_SCALE);

@@ -61,10 +61,7 @@
 
 - (void) startRequest:(NSURLRequest *)request
 {
-#ifdef COCOS2D_DEBUG
     NSLog(@"Starting to load %@", srcURL);
-#endif
-    
     finish = false;
 
     self.responseData = [NSMutableData data];
@@ -93,9 +90,7 @@
  **/
 - (void) connection:(NSURLConnection *)connection 
  didReceiveResponse:(NSURLResponse *)response {
-#ifdef COCOS2D_DEBUG
     NSLog(@"Received response from request to url %@", srcURL);
-#endif
     
     NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
     //NSLog(@"All headers = %@", [httpResponse allHeaderFields]);

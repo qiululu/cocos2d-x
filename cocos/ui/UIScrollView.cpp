@@ -149,7 +149,7 @@ void ScrollView::onSizeChanged()
     float innerSizeWidth = MAX(orginInnerSizeWidth, _contentSize.width);
     float innerSizeHeight = MAX(orginInnerSizeHeight, _contentSize.height);
     _innerContainer->setContentSize(Size(innerSizeWidth, innerSizeHeight));
-    setInnerContainerPosition(Vec2(0, _contentSize.height - _innerContainer->getContentSize().height));
+    _innerContainer->setPosition(Vec2(0, _contentSize.height - _innerContainer->getContentSize().height));
 }
 
 void ScrollView::setInnerContainerSize(const Size &size)
@@ -193,33 +193,12 @@ void ScrollView::setInnerContainerSize(const Size &size)
     {
         pos.y = _contentSize.height - (1.0f - _innerContainer->getAnchorPoint().y) * _innerContainer->getContentSize().height;
     }
-    setInnerContainerPosition(pos);
+    _innerContainer->setPosition(pos);
 }
 
 const Size& ScrollView::getInnerContainerSize() const
 {
     return _innerContainer->getContentSize();
-}
-
-void ScrollView::setInnerContainerPosition(const Vec2 &position)
-{
-    _innerContainer->setPosition(position);
-    
-    this->retain();
-    if (_eventCallback)
-    {
-        _eventCallback(this, EventType::CONTAINER_MOVED);
-    }
-    if (_ccEventCallback)
-    {
-        _ccEventCallback(this, static_cast<int>(EventType::CONTAINER_MOVED));
-    }
-    this->release();
-}
-    
-const Vec2 ScrollView::getInnerContainerPosition() const
-{
-    return _innerContainer->getPosition();
 }
 
 void ScrollView::addChild(Node* child)
@@ -290,7 +269,7 @@ void ScrollView::moveChildren(float offsetX, float offsetY)
     
 void ScrollView::moveChildrenToPosition(const Vec2& position)
 {
-    setInnerContainerPosition(position);
+    _innerContainer->setPosition(position);
     
     Vec2 outOfBoundary = getHowMuchOutOfBoundary(Vec2::ZERO);
     updateScrollBar(outOfBoundary);
@@ -366,7 +345,6 @@ void ScrollView::processAutoScrolling(float deltaTime)
             percentage = tweenfunc::quintEaseOut(percentage);
         }
         Vec2 moveDelta = _autoScrollTargetDelta * percentage;
-        moveChildrenToPosition(_autoScrollStartPosition + moveDelta);
         
         // Dispatch related events if bouncing
         if(_bouncingBack)
@@ -388,6 +366,7 @@ void ScrollView::processAutoScrolling(float deltaTime)
                 processScrollEvent(MoveDirection::BOTTOM, true);
             }
         }
+        moveChildrenToPosition(_autoScrollStartPosition + moveDelta);
     }
 }
 
@@ -515,6 +494,8 @@ void ScrollView::processInertiaScrolling(float dt)
 
 bool ScrollView::scrollChildren(float touchOffsetX, float touchOffsetY)
 {
+    processScrollingEvent();
+    
     touchOffsetX = (_direction == Direction::VERTICAL ? 0 : touchOffsetX);
     touchOffsetY = (_direction == Direction::HORIZONTAL ? 0 : touchOffsetY);
     if(_bounceEnabled)
@@ -527,10 +508,7 @@ bool ScrollView::scrollChildren(float touchOffsetX, float touchOffsetY)
     float realOffsetX = touchOffsetX;
     float realOffsetY = touchOffsetY;
     
-    bool scrolledToLeft = false;
-    bool scrolledToRight = false;
-    bool scrolledToTop = false;
-    bool scrolledToBottom = false;
+    bool scrollEnabledUpDown = true;
     if (touchOffsetY > 0.0f) // up
     {
         float icBottomPos = _innerContainer->getBottomBoundary();
@@ -540,7 +518,8 @@ bool ScrollView::scrollChildren(float touchOffsetX, float touchOffsetY)
             {
                 realOffsetY = _bottomBoundary - icBottomPos;
             }
-            scrolledToBottom = true;
+            processScrollEvent(MoveDirection::BOTTOM, false);
+            scrollEnabledUpDown = false;
         }
     }
     else if (touchOffsetY < 0.0f) // down
@@ -552,10 +531,12 @@ bool ScrollView::scrollChildren(float touchOffsetX, float touchOffsetY)
             {
                 realOffsetY = _topBoundary - icTopPos;
             }
-            scrolledToTop = true;
+            processScrollEvent(MoveDirection::TOP, false);
+            scrollEnabledUpDown = false;
         }
     }
     
+    bool scrollEnabledLeftRight = true;
     if (touchOffsetX < 0.0f) // left
     {
         float icRightPos = _innerContainer->getRightBoundary();
@@ -565,7 +546,8 @@ bool ScrollView::scrollChildren(float touchOffsetX, float touchOffsetY)
             {
                 realOffsetX = _rightBoundary - icRightPos;
             }
-            scrolledToRight = true;
+            processScrollEvent(MoveDirection::RIGHT, false);
+            scrollEnabledLeftRight = false;
         }
     }
     else if (touchOffsetX > 0.0f) // right
@@ -577,34 +559,11 @@ bool ScrollView::scrollChildren(float touchOffsetX, float touchOffsetY)
             {
                 realOffsetX = _leftBoundary - icLeftPos;
             }
-            scrolledToLeft = true;
+            processScrollEvent(MoveDirection::LEFT, false);
+            scrollEnabledLeftRight = false;
         }
     }
     moveChildren(realOffsetX, realOffsetY);
-    
-    if(realOffsetX != 0 || realOffsetY != 0)
-    {
-        processScrollingEvent();
-    }
-    if(scrolledToBottom)
-    {
-        processScrollEvent(MoveDirection::BOTTOM, false);
-    }
-    if(scrolledToTop)
-    {
-        processScrollEvent(MoveDirection::TOP, false);
-    }
-    if(scrolledToLeft)
-    {
-        processScrollEvent(MoveDirection::LEFT, false);
-    }
-    if(scrolledToRight)
-    {
-        processScrollEvent(MoveDirection::RIGHT, false);
-    }
-    
-    bool scrollEnabledUpDown = (!scrolledToBottom && !scrolledToTop);
-    bool scrollEnabledLeftRight = (!scrolledToLeft && !scrolledToRight);
     return scrollEnabledUpDown || scrollEnabledLeftRight;
 }
 
@@ -1188,33 +1147,6 @@ const Color3B& ScrollView::getScrollBarColor() const
         return _horizontalScrollBar->getColor();
     }
     return Color3B::WHITE;
-}
-
-void ScrollView::setScrollBarOpacity(GLubyte opacity)
-{
-    CCASSERT(_scrollBarEnabled, "Scroll bar should be enabled!");
-    if(_verticalScrollBar != nullptr)
-    {
-        _verticalScrollBar->setOpacity(opacity);
-    }
-    if(_horizontalScrollBar != nullptr)
-    {
-        _horizontalScrollBar->setOpacity(opacity);
-    }
-}
-
-GLubyte ScrollView::getScrollBarOpacity() const
-{
-    CCASSERT(_scrollBarEnabled, "Scroll bar should be enabled!");
-    if(_verticalScrollBar != nullptr)
-    {
-        return _verticalScrollBar->getOpacity();
-    }
-    else if(_horizontalScrollBar != nullptr)
-    {
-        return _horizontalScrollBar->getOpacity();
-    }
-    return -1;
 }
 
 void ScrollView::setScrollBarAutoHideEnabled(bool autoHideEnabled)

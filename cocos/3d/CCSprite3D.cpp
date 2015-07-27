@@ -352,7 +352,8 @@ Sprite3D* Sprite3D::createSprite3DNode(NodeData* nodedata,ModelData* modeldata,c
         if (modeldata->matrialId == "" && materialdatas.materials.size())
         {
             const NTextureData* textureData = materialdatas.materials[0].getTextureData(NTextureData::Usage::Diffuse);
-            mesh->setTexture(textureData->filename);
+            if (!textureData->filename.empty())
+                mesh->setTexture(textureData->filename);
         }
         else
         {
@@ -360,10 +361,9 @@ Sprite3D* Sprite3D::createSprite3DNode(NodeData* nodedata,ModelData* modeldata,c
             if(materialData)
             {
                 const NTextureData* textureData = materialData->getTextureData(NTextureData::Usage::Diffuse);
-                if(textureData)
+                if(textureData && !textureData->filename.empty())
                 {
-                    mesh->setTexture(textureData->filename);
-                    auto tex = mesh->getTexture();
+                    auto tex = Director::getInstance()->getTextureCache()->addImage(textureData->filename);
                     if(tex)
                     {
                         Texture2D::TexParams texParams;
@@ -372,8 +372,10 @@ Sprite3D* Sprite3D::createSprite3DNode(NodeData* nodedata,ModelData* modeldata,c
                         texParams.wrapS = textureData->wrapS;
                         texParams.wrapT = textureData->wrapT;
                         tex->setTexParameters(texParams);
+                        mesh->setTexture(tex);
                         mesh->_isTransparent = (materialData->getTextureData(NTextureData::Usage::Transparency) != nullptr);
                     }
+
                 }
             }
         }
@@ -504,10 +506,9 @@ void Sprite3D::createNode(NodeData* nodedata, Node* root, const MaterialDatas& m
                         if(materialData)
                         {
                             const NTextureData* textureData = materialData->getTextureData(NTextureData::Usage::Diffuse);
-                            if(textureData)
+                            if(textureData && !textureData->filename.empty())
                             {
-                                mesh->setTexture(textureData->filename);
-                                auto tex = mesh->getTexture();
+                                auto tex = Director::getInstance()->getTextureCache()->addImage(textureData->filename);
                                 if(tex)
                                 {
                                     Texture2D::TexParams texParams;
@@ -516,8 +517,10 @@ void Sprite3D::createNode(NodeData* nodedata, Node* root, const MaterialDatas& m
                                     texParams.wrapS = textureData->wrapS;
                                     texParams.wrapT = textureData->wrapT;
                                     tex->setTexParameters(texParams);
+                                    mesh->setTexture(tex);
                                     mesh->_isTransparent = (materialData->getTextureData(NTextureData::Usage::Transparency) != nullptr);
                                 }
+
                             }
                         }
                     }
@@ -979,10 +982,7 @@ static GLProgramState* getGLProgramStateForAttribs(MeshVertexData* meshVertexDat
     }
     else
     {
-        if (hasNormal && usesLight)
-            shader = GLProgram::SHADER_3D_POSITION_NORMAL;
-        else
-            shader = GLProgram::SHADER_3D_POSITION;
+        shader = GLProgram::SHADER_3D_POSITION;
     }
 
     CCASSERT(shader, "Couldn't find shader for sprite");

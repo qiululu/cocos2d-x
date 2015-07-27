@@ -35,7 +35,7 @@ _isAutoScrolling(false),
 _autoScrollDistance(0.0f),
 _autoScrollSpeed(0.0f),
 _autoScrollDirection(AutoScrollDirection::LEFT),
-_curPageIdx(-1),
+_curPageIdx(0),
 _touchMoveDirection(TouchDirection::LEFT),
 _leftBoundaryChild(nullptr),
 _rightBoundaryChild(nullptr),
@@ -138,10 +138,7 @@ void PageView::addPage(Layout* page)
     
     addChild(page);
     _pages.pushBack(page);
-    if (_curPageIdx == -1)
-    {
-        _curPageIdx = 0;
-    }
+    
     _doLayoutDirty = true;
 }
 
@@ -162,15 +159,11 @@ void PageView::insertPage(Layout* page, int idx)
     {
         _pages.insert(idx, page);
         addChild(page);
-        if(_curPageIdx == -1)
-        {
-            _curPageIdx = 0;
-        }
+        
     }
     
     _doLayoutDirty = true;
 }
-
 
 void PageView::removePage(Layout* page)
 {
@@ -180,12 +173,7 @@ void PageView::removePage(Layout* page)
     }
     removeChild(page);
     _pages.eraseObject(page);
-    auto pageCount = _pages.size();
-    if (_curPageIdx >= pageCount)
-    {
-        _curPageIdx = pageCount - 1;
-    }
-
+    
     _doLayoutDirty = true;
 }
 
@@ -206,7 +194,6 @@ void PageView::removeAllPages()
         removeChild(node);
     }
     _pages.clear();
-    _curPageIdx = -1;
 }
 
 void PageView::updateBoundaryPages()
@@ -254,7 +241,7 @@ void PageView::updateAllPagesPosition()
     
     if (pageCount <= 0)
     {
-        _curPageIdx = -1;
+        _curPageIdx = 0;
         return;
     }
     
@@ -262,9 +249,7 @@ void PageView::updateAllPagesPosition()
     {
         _curPageIdx = pageCount-1;
     }
-    // If the layout is dirty, don't trigger auto scroll
-    _isAutoScrolling = false;
-
+    
     float pageWidth = getContentSize().width;
     for (int i=0; i<pageCount; i++)
     {
@@ -274,15 +259,6 @@ void PageView::updateAllPagesPosition()
     }
 }
 
-void PageView::setCurPageIndex( ssize_t index )
-{
-    if (index < 0 || index >= this->getPageCount())
-    {
-        return;
-    }
-    _curPageIdx = index;
-    _doLayoutDirty = true;
-}
 
 void PageView::scrollToPage(ssize_t idx)
 {

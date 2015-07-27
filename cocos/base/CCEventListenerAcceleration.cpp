@@ -89,7 +89,7 @@ EventListenerAcceleration* EventListenerAcceleration::clone()
 
 bool EventListenerAcceleration::checkAvailable()
 {
-    CCASSERT(onAccelerationEvent, "onAccelerationEvent can't be nullptr!");
+    CCASSERT(onAccelerationEvent, "");
     
     return true;
 }

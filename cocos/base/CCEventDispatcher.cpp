@@ -811,8 +811,7 @@ void EventDispatcher::dispatchTouchEventToListeners(EventListenerVector* listene
         }
     }
     
-    auto scene = Director::getInstance()->getRunningScene();
-    if (scene && sceneGraphPriorityListeners)
+    if (sceneGraphPriorityListeners)
     {
         if (!shouldStopPropagation)
         {
@@ -830,7 +829,7 @@ void EventDispatcher::dispatchTouchEventToListeners(EventListenerVector* listene
             // second, for all camera call all listeners
             // get a copy of cameras, prevent it's been modified in linstener callback
             // if camera's depth is greater, process it earler
-            auto cameras = scene->getCameras();
+            auto cameras = Director::getInstance()->getRunningScene()->getCameras();
             Camera* camera;
             for (int j = int(cameras.size()) - 1; j >= 0; --j)
             {
@@ -1028,8 +1027,7 @@ void EventDispatcher::dispatchTouchEvent(EventTouch* event)
                     return true;
                 }
                 
-                CCASSERT((*touchesIter)->getID() == (*mutableTouchesIter)->getID(),
-                         "touchesIter ID should be equal to mutableTouchesIter's ID.");
+                CCASSERT((*touchesIter)->getID() == (*mutableTouchesIter)->getID(), "");
                 
                 if (isClaimed && listener->_isRegistered && listener->_needSwallow)
                 {

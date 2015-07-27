@@ -137,7 +137,7 @@ bool Armature::init(const std::string& name)
 
 
             ArmatureData *armatureData = armatureDataManager->getArmatureData(name);
-            CCASSERT(armatureData, "armatureData doesn't exists!");
+            CCASSERT(armatureData, "");
 
             _armatureData = armatureData;
 

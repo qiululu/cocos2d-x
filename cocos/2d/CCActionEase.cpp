@@ -46,7 +46,7 @@ NS_CC_BEGIN
 
 bool ActionEase::initWithAction(ActionInterval *action)
 {
-    CCASSERT(action != nullptr, "action couldn't be nullptr!");
+    CCASSERT(action != nullptr, "");
 
     if (ActionInterval::initWithDuration(action->getDuration()))
     {

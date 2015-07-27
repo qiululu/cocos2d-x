@@ -410,7 +410,11 @@ TextureCache* Director::getTextureCache() const
 
 void Director::initTextureCache()
 {
+#ifdef EMSCRIPTEN
+    _textureCache = new (std::nothrow) TextureCacheEmscripten();
+#else
     _textureCache = new (std::nothrow) TextureCache();
+#endif // EMSCRIPTEN
 }
 
 void Director::destroyTextureCache()
